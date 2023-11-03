@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+option go_package = "api/";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+message Customer {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string address = 4;
+  google.protobuf.Timestamp start_date = 5;
+  google.protobuf.Timestamp end_date = 6;
+  bool  is_active = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message CreateCustomerReq {
+  string first_name = 1;
+  string last_name = 2;
+  string address = 3;
+}
+
+message GetActiveCustomersReq{
+}
+
+message ActiveCustomers {
+  repeated Customer customers = 1;
+}
+
+service CustomerService {
+  rpc Create (CreateCustomerReq) returns (Customer);
+  rpc GetActiveCustomers (GetActiveCustomersReq) returns (ActiveCustomers);
+}
+
+enum Status {
+  NEW = 0;
+  DONE = 1;
+  CANCELLED = 2;
+}
+
+message WorkOrder {
+  string id = 1;
+  string customer_id = 2;
+  string title = 3;
+  google.protobuf.Timestamp planned_date_begin = 4;
+  google.protobuf.Timestamp planned_date_end = 5;
+  Status status = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message CreateWorkOrderReq {
+  string customer_id = 1;
+  string title = 2;
+  google.protobuf.Timestamp planned_date_begin = 3;
+  google.protobuf.Timestamp planned_date_end = 4;
+}
+
+message WorkOrderReq {
+  string work_order_id = 1;
+}
+
+message GetWorkOrdersReq{
+  google.protobuf.Timestamp since = 1;
+  google.protobuf.Timestamp until = 2;
+  Status status = 3;
+}
+
+message GetWorkOrdersResp{
+  repeated WorkOrder work_orders = 1;
+}
+
+message GetWorkOrderByCustomerIDReq{
+  string customer_id = 1;
+}
+
+message GetWorkOrderByIDReq{
+  string id = 1;
+}
+
+message WorkOrderWithCustomerResp{
+  WorkOrder workOrder = 1;
+  Customer customer = 2;
+}
+
+message WorkOrderMsg{
+  string message = 1;
+}
+
+service WorkOrderService {
+  rpc Create(CreateWorkOrderReq) returns (WorkOrder);
+  rpc Finish(WorkOrderReq) returns (WorkOrder);
+  rpc Cancel(WorkOrderReq) returns (WorkOrderMsg);
+  rpc GetWorkOrders(GetWorkOrdersReq) returns (GetWorkOrdersResp);
+  rpc GetWorkOrderByCustomerID(GetWorkOrderByCustomerIDReq) returns (GetWorkOrdersResp);
+  rpc GetWorkOrderByID(GetWorkOrderByIDReq) returns (WorkOrderWithCustomerResp);
+}

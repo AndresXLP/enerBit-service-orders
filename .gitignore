@@ -1,5 +1,8 @@
-# Created by https://www.toptal.com/developers/gitignore/api/intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows
+# Created by https://www.toptal.com/developers/gitignore/api/intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows,dotenv
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows,dotenv
+
+### dotenv ###
+.env
 
 ### Go ###
 # If you prefer the allow list template instead of the deny list, see community template:
@@ -509,4 +512,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows
+# End of https://www.toptal.com/developers/gitignore/api/intellij,intellij+iml,intellij+all,go,goland,goland+iml,goland+all,linux,macos,windows,dotenv
